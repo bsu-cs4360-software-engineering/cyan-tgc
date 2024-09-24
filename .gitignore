@@ -1,0 +1,9 @@
+# Build directories
+bin/
+obj/
+
+# User-specific
+.env
+
+# IDE-specfic files
+.vscode/
