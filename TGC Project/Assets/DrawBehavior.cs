@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class DrawBehavior : MonoBehaviour
 {
+    public CardScriptHandler cardScriptHandler;
+
     public Button Draw;
     private GameObject CardPos1;
 
@@ -27,7 +29,7 @@ public class DrawBehavior : MonoBehaviour
         CardPos1 = GameObject.Find("CardPos1");
         if (CardPos1.transform.childCount < 1)
         {
-            Debug.Log("No Child!");
+            CardPos1.Add(Card);
         }
         
     }

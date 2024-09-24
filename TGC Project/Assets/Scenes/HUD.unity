@@ -293,7 +293,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 657.5967, y: 147.81323}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &768789490
@@ -390,6 +390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59a6afefa012c5d429c0582c399f7345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardScriptHandler: {fileID: 0}
   Draw: {fileID: 768789490}
 --- !u!1 &1637539716
 GameObject:
