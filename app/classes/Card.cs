@@ -1,20 +1,29 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
+public enum CardType {
+    Damage,
+    Armor,
+    Heal
+}
+
 public class Card {
     [BsonId]
     public ObjectId Id { get; set; }
+
     public string Name { get; set; }
     public int Cost { get; set; }
-    public string Element { get; set; }
-    public CardEffect Effect { get; set; }
+
+    public CardType Type { get; set; }
+    public int Value { get; set; }
+
     public string Description { get; set; }
 
-    public Card(string name, int cost, string element, CardEffect effect, string description) {
+    public Card(string name, int cost, CardType type, int value, string description) {
         Name = name;
-        Element = element;
         Cost = cost;
-        Effect = effect;
+        Type = type;
+        Value = value;
         Description = description;
     }
 
@@ -23,6 +32,6 @@ public class Card {
     }
 
     public override string ToString() {
-        return $"{Name} ({Element}), Cost: {Cost}\n{Description}";
+        return $"{Name} ({Type}), Cost: {Cost}, Value: {Value}\n{Description}";
     }
 }

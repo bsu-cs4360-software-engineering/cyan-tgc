@@ -7,7 +7,25 @@ class Program {
         } else {
             string connectionString = "mongodb+srv://guest:KfWLTPmOiQFblrch@m0.l2w43.mongodb.net/?retryWrites=true&w=majority&appName=M0";
             Database db = new Database(connectionString);
-            Console.WriteLine("Default Logic");
+            var dataLoader = new Loader(db);
+
+            await dataLoader.LoadDataAsync();
+
+            if (dataLoader.Heroes != null && dataLoader.Heroes.Any()) {
+                foreach (var hero in dataLoader.Heroes) {
+                    Console.WriteLine($"Hero: {hero.Name}");
+                }
+            } else {
+                Console.WriteLine("No heroes found.");
+            }
+
+            if (dataLoader.Cards != null && dataLoader.Cards.Any()) {
+                foreach (var card in dataLoader.Cards) {
+                    Console.WriteLine($"Card: {card.Name}");
+                }
+            } else {
+                Console.WriteLine("No cards found.");
+            }
         }
         
     }
@@ -39,22 +57,18 @@ class Program {
 
         var cards = new List<Card> {
             new Card(
-                "Fireball", // Card Name
-                5, // Card Cost
-                "Fire", // Element Type
-                new CardEffect(
-                    "Damage", // Effect Type ex. Damage, Heal
-                    10, // Effect Value (Int)
-                    new List<string> { "Enemy" } // Targets ex. Enemy, Self, Ally
-                ),
-                "Deals 10 damage to the target" // Card Description
+                "Healing Light", // Card Name
+                3, // Card Cost
+                CardType.Heal, // Card Type
+                5, // Effect Value
+                "Heals the caster for 5" // Card Description
             )
         };
 
         if (insertCards) {
-            foreach (var cardI in cards) {
-                await db.CreateCardAsync(cardI);
-                Console.WriteLine($"Hero '{cardI.Name}' inserted successfully!");
+            foreach (var card in cards) {
+                await db.CreateCardAsync(card);
+                Console.WriteLine($"Card '{card.Name}' inserted successfully!");
             }
         } else {
             Console.WriteLine("Card insertion skipped.");
