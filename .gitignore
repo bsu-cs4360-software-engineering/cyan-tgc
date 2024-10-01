@@ -1,6 +1,7 @@
 # Build directories
 bin/
 obj/
+__pycache__
 
 <<<<<<< HEAD
 # User-specific

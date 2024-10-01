@@ -32,3 +32,9 @@ Run Instructions
 3. Restore Dependencies `dotnet restore`
 4. Build the Project `dotnet build`
 5. Run the Application `dotnet run`
+
+### Unit Testing
+Test Instructions
+1. Install Python
+1. Navigate to Tests Directory `cd app/tests`
+2. Run `python -m unittest tests.py`
