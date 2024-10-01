@@ -3,13 +3,12 @@ bin/
 obj/
 __pycache__
 
-<<<<<<< HEAD
 # User-specific
 .env
 
 # IDE-specfic files
 .vscode/
-=======
+
 TGC Project/Library/Artifacts/b0/b0d364169477b0991a53949c999cff73
 TGC Project/Library/Artifacts/b0/b0d4cba3047ad8c2b1f559bb5086796a
 TGC Project/Library/Artifacts/b0/b0d9a18be59aa4a1825b36f2805a55df
@@ -27222,4 +27221,3 @@ TGC Project/Library/ShaderCache/shader/TMP_SDF68e6/00/de07bba92194971f578599e832
 TGC Project/Library/ShaderCache/shader/TMP_SDF68e6/00/b6e938e2357e8313f96ed44873d2a5af.bin
 TGC Project/Library/ShaderCache/shader/TMP_SDF-Surfacef7ad/00/e9f1225b2cd265d9ef4452c295985a77.bin
 TGC Project/Library/ShaderCache/shader/TMP_SDF-Surfacef7ad/00/bbbb4fd66d3e0ed113d7a2c02ee78f51.bin
->>>>>>> c250668083fdad612f0a052196c0510c2917d89f

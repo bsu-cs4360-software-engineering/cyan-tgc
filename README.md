@@ -1,10 +1,6 @@
 # cyan-tgc
-<<<<<<< HEAD
 
 This master document includes details of a Trading Card Game that underlines some elements from Hearthstone + Dungeons & Dragons. Players will build decks to face off against generated enemies. Each card represents unique abilities that can influence the game in various ways. Players can draw cards from their decks to strategize, using them to cast spells, and engage in tactical combat.
-=======
-Card Game Master Document
->>>>>>> c250668083fdad612f0a052196c0510c2917d89f
 
 ### 1. Functional Requirements / Major Elements
 - Players can build and customize decks.
