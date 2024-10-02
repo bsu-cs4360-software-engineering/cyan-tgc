@@ -1,4 +1,15 @@
+# Build directories
+bin/
+obj/
+__pycache__/
 
+# User-specific
+.env
+
+# IDE-specfic files
+.vscode/
+
+# Unity ignores
 TGC Project/Library/AnnotationManager
 TGC Project/Library/APIUpdater/project-dependencies.graph
 TGC Project/Library/ArtifactDB
