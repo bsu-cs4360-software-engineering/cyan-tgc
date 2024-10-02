@@ -1,7 +1,11 @@
+import asyncio
 import unittest
+from unittest.mock import AsyncMock, patch
 from card import Card, CardType
 from hand import Hand
 from deck import Deck
+from db import Database
+from loader import Loader
 
 class TestCard(unittest.TestCase):
     def test_card_init(self):
@@ -99,6 +103,78 @@ class TestDeck(unittest.TestCase):
         self.deck.add_card(card2)
         self.deck.shuffle()
         self.assertEqual(self.deck.count, 2)
+
+class TestDatabase(unittest.TestCase):
+
+    @patch('db.MongoClient')
+    def setUp(self, mock_mongo_client):
+        self.mock_client = mock_mongo_client.return_value
+        self.mock_db = self.mock_client.__getitem__.return_value
+        self.mock_cards = self.mock_db.__getitem__.return_value
+
+        self.db = Database("mongodb://localhost:27017/")
+
+    @patch('db.Database.get_cards', new_callable=AsyncMock)
+    def test_get_cards(self, mock_get_cards):
+        card1 = Card("Fireball", 5, CardType.DAMAGE, 10, "A powerful fire spell.")
+        card2 = Card("Healing Light", 3, CardType.HEAL, 5, "A healing spell.")
+
+        mock_get_cards.return_value = [card1, card2]
+
+        async def run_test():
+            cards = await self.db.get_cards()
+            self.assertEqual(cards, [card1, card2])
+
+        asyncio.run(run_test())
+
+    @patch('db.Database.get_cards', new_callable=AsyncMock)
+    def test_get_cards_empty(self, mock_get_cards):
+        mock_get_cards.return_value = []
+
+        async def run_test():
+            cards = await self.db.get_cards()
+            self.assertEqual(cards, [])
+
+        asyncio.run(run_test())
+
+    @patch('db.Database.create_card', new_callable=AsyncMock)
+    def test_create_card(self, mock_create_card):
+        card = Card("Fireball", 5, CardType.DAMAGE, 10, "A powerful fire spell.")
+
+        async def run_test():
+            await self.db.create_card(card)
+            mock_create_card.assert_called_once_with(card)
+
+        asyncio.run(run_test())
+
+class TestLoader(unittest.TestCase):
+    @patch('db.Database.get_cards', new_callable=AsyncMock)
+    def setUp(self, mock_get_cards):
+        self.mock_database = AsyncMock()
+        self.mock_database.get_cards = mock_get_cards
+
+        self.loader = Loader(self.mock_database)
+
+    def test_load_data_success(self):
+        card1 = Card("Fireball", 5, CardType.DAMAGE, 10, "A powerful fire spell.")
+        card2 = Card("Healing Light", 3, CardType.HEAL, 5, "A healing spell.")
+
+        self.loader._database.get_cards.return_value = [card1, card2]
+
+        async def run_test():
+            await self.loader.load_data()
+            self.assertEqual(self.loader.cards, [card1, card2])
+
+        asyncio.run(run_test())
+
+    def test_load_data_empty(self):
+        self.loader._database.get_cards.return_value = []
+
+        async def run_test():
+            await self.loader.load_data()
+            self.assertEqual(self.loader.cards, [])
+
+        asyncio.run(run_test())
 
 if __name__ == "__main__":
     unittest.main()
