@@ -49,6 +49,7 @@ MonoBehaviour:
   cardName: 
   newScale: {x: 1.1, y: 1.1, z: 0}
   prefab: {fileID: 1257903370437738423}
+  field: {fileID: 1486775177230148431, guid: a114fb79c260f4543a75900478fa6c33, type: 3}
 --- !u!61 &6215644516051539191
 BoxCollider2D:
   m_ObjectHideFlags: 0

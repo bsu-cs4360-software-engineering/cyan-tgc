@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class DrawBehavior : MonoBehaviour
 {
     public Button Draw;
-    public GameObject[] hand;
+    public GameObject hand;
     public GameObject cardBase;
     void Start()
     {
@@ -20,11 +20,12 @@ public class DrawBehavior : MonoBehaviour
 
     void DrawCard()
     {
-        foreach(GameObject pos in hand)
-        {
-            if (pos.transform.childCount < 1)
+        for (int x = 0; x < hand.transform.childCount; x++) 
+        { 
+            if(hand.transform.GetChild(x).childCount < 1)
             {
-                Instantiate(cardBase, pos.transform);
+                Instantiate(cardBase,hand.transform.GetChild(x));
+                break;
             }
         }
     }

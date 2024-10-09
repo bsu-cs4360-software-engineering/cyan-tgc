@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class CardObject : MonoBehaviour
@@ -10,11 +11,14 @@ public class CardObject : MonoBehaviour
     private Vector3 oldScale = Vector3.one;
     public Vector3 newScale;
     public GameObject prefab;
-    public GameObject[] field;
+    public GameObject field;
+    private bool pickedUp = false;
     // Start is called before the first frame update
     void Start()
     {
         cardName = ScriptableObject.CreateInstance<Cards>().cardName;
+        Debug.Log(field.transform.GetChild(0).localPosition);
+
     }
 
     // Update is called once per frame
@@ -35,12 +39,12 @@ public class CardObject : MonoBehaviour
     private void OnMouseDown()
     {
         if (prefab.transform.parent.parent.name.ToLower() != "field") {
-            foreach (GameObject pos in field.Reverse())
+            for (int x = 0; x < field.transform.childCount; x++)
             {
-                if (pos.transform.childCount == 0)
+                if (field.transform.GetChild(x).transform.childCount == 0)
                 {
-                    prefab.transform.parent = pos.transform;
-                    prefab.transform.localPosition = pos.transform.localPosition;
+                    prefab.transform.parent = field.transform.GetChild(x).transform;
+                    prefab.transform.localPosition = Vector3.zero;
                 }
             }
         }
@@ -49,10 +53,11 @@ public class CardObject : MonoBehaviour
             DestroyClick();
         }
         
+        
     }
     private void DestroyClick()
     {
         Destroy(prefab);
     }
-    
+
 }
